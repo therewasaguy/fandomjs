@@ -53,7 +53,7 @@ function draw() {
 }
 
 function checkMouse(e) {
-	println(e);
+	// println(e);
 	sel = false;
 	println(e);
   	loadPixels();
