@@ -21,7 +21,6 @@ function draw() {
 	background(255, 255, 255, 90);
 
 	printData(years);
-//	checkMouse();			//TOO SLOW!
 	for (var i = 2; i<years.length; i++) {
 	    fill(0);
 		noStroke();
@@ -54,12 +53,13 @@ function draw() {
 }
 
 function checkMouse(e) {
+	println(e);
 	sel = false;
 	println(e);
   	loadPixels();
-	mouseColor = pixels[mouseX+mouseY*wid];
+	mouseColor = pixels[e.pageX+e.pageY*wid];
 	println(mouseColor);
-	var curPix = mouseX + mouseY*width;
+	var curPix = e.pageX + e.pageY*width;
 	updatePixels();
 }
 
