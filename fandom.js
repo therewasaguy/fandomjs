@@ -64,23 +64,37 @@ function checkMouse(e) {
 }
 
 function loadData() {
-	table = lStrings("fandom.txt");
-	println(table.length + " loaded!");
+	lStrings('fandom.txt', function(data) {
+		table = data;
 
-	for (var i = 1; i<table.length; i++) {
-		var rowVals = split(table[i], ',');
-		fanObjects[i - 1] = new FanObject(rowVals, years);
-	}
+		println(table.length + " loaded!");
+
+		for (var i = 1; i<table.length; i++) {
+			var rowVals = split(table[i], ',');
+			fanObjects[i - 1] = new FanObject(rowVals, years);
+		}
+
+	});
 }
 
-//parse data from csv file (suggest this as a better 'loadStrings' for the p5.js library?)
-function lStrings(path) {
-	var xhr = new XMLHttpRequest();
-	xhr.open('GET', path, false);
-	xhr.send(null);
-	var ret = xhr.responseText.split('\n');
-	return ret;
-}
+//parse data from csv file (suggested this as a replacement for 'loadStrings' for the p5.js library, too)
+lStrings = function(path, callback) {
+    var ret = [];
+    var req = new XMLHttpRequest();
+    req.open('GET', path, true);
+    req.onreadystatechange = function () {
+      if((req.readyState === 4) && (req.status === 200 || req.status === 0)) {
+        var arr = req.responseText.match(/[^\r\n]+/g);
+        for (var k in arr) {
+          ret[k] = arr[k];
+        }
+        if (typeof callback !== 'undefined') {
+          callback(ret);
+        }
+      }
+    };
+    req.send(null);
+  };
 
 function printData(y) {
 	for (var i = 0; i<fanObjects.length; i++) {
