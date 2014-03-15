@@ -53,7 +53,6 @@ function draw() {
 }
 
 function checkMouse(e) {
-	// println(e);
 	sel = false;
 	println(e);
   	loadPixels();
@@ -155,7 +154,9 @@ function FanObject(columns, y) {
 	this.objType = columns[1]
 	println(this.objType);
 
+
 	/*pick color based on objType */
+
 	// lit / media / art = red
 	if (this.objType == 'lit' || this.objType == 'media' || this.objType == 'art') {
 		this.c = [Math.floor(random(200,254)), Math.floor(random(0,50)), Math.floor(random(0,50)), 255];
@@ -198,8 +199,4 @@ window.onload = function() {
 
 	document.getElementById('bod').addEventListener("mousedown", checkMouse,false);  
 
-	// document.getElementById('bod').mousedown = function() {
-	//   println("click!!!");
-	//   checkMouse();
-	// }
 }
